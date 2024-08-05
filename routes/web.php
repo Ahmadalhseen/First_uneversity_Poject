@@ -1,7 +1,7 @@
 <?php
-
+use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('users', [AuthController::class,"get"]);
+Route::get('login', function (){return inertia::render("Auth/Login");});
