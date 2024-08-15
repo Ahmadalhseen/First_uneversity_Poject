@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('property_images', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('property_id');
-            $table->foreign('property_id')->references('id')->on('properties')->onDelete('cascade');
-            $table->string('image_url');
+        Schema::create('suggestions', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->text('content');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
-
     }
 
     /**
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('property_images');
+        Schema::dropIfExists('suggestions');
     }
 };
