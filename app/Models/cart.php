@@ -7,6 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class cart extends Model
 {
+    public function property(): BelongsTo
+    {
+        return $this->belongsTo(Property::class);
+    }
+    public function User(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
     protected $table="cart";
     use HasFactory;
 }

@@ -11,23 +11,23 @@ class AuthController extends Controller
 {
 
     public function register(Request $request)
-    {
-        // $validatedData = $request->validate([
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|string|email|max:255|unique:users',
-        //     'phone'=>'required',
-        //     'password' => 'required|string|min:8',
-        // ]);
-        $user = new User;
-            $user->f_name =$request->f_name;
-            $user->l_name =$request->l_name;
-            $user->email = $request->email;
-            $user->phone=$request->phone;
-            $user->password = Hash::make($request->password);
-            $user->api_token = Str::random(60);
-            $user->save();
-        return response()->json(['user' => $user], 201);
-    }
+{
+    // Creating a new user
+    $user = new User;
+    $user->f_name = $request->f_name;
+    $user->l_name = $request->l_name;
+    $user->email = $request->email;
+    $user->phone = $request->phone;
+    $user->password = Hash::make($request->password);
+    $user->api_token = Str::random(60);
+    $user->save();
+
+    // Retrieve the newly created user as an object
+    $user_data = User::where('email', $request->email)->first(); // Use first() instead of get()
+
+    // Return the user data as an object
+    return response()->json(['user' => $user_data], 201);
+}
     public function login(Request $request)
     {
         if (Auth::attempt(['email'=>$request->email,'password'=>$request->password])) {

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('property_id')->constrained()->onDelete('cascade');
             $table->string('image_url');
-            $table->string('vedio_url');
+            $table->string('vedio_url')->nullable();
             $table->timestamps();
         });
     }

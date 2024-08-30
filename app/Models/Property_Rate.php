@@ -17,4 +17,5 @@ class Property_Rate extends Model
     {
         return $this->belongsTo(User::class);
     }
+    
 }

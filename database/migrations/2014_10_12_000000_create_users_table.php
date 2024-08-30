@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('api_token');
             $table->boolean('can_add')->default(false);
             $table->string('phone');
-            $table->integer('property_id')->nullable()->unique()->default(null);
+            $table->string('picture')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -13,12 +13,21 @@ return new class extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
-            $table->double('lot_rea', 15, 8);
-            $table->integer('overall_qual');
-            $table->double('sale_price', 15, 8);
-            $table->integer('totrms_abvgrd');
-            $table->integer('full_bath');
-            $table->date('year_built');
+            $table->double('area', 15, 8); // مساحة العقار
+            $table->integer('bedroom'); // عدد غرف النوم
+            $table->integer('bathroom'); // عدد الحمامات
+            $table->string('location', 255); // موقع العقار
+            $table->string('direction', 50); // اتجاه العقار (مثل الشمال، الجنوب)
+            $table->string('view', 100); // نوع الإطلالة
+            $table->string('condition', 100); // حالة العقار (مثل جديد، قديم)
+            $table->string('grade', 50); // درجة العقار أو تصنيفه
+            $table->string('main_image_url', 255);
+            $table->double('sale_price', 8, 2); // رابط الصورة الرئيسية للعقار
+            $table->unsignedBigInteger('user_id')->nullable(); // علاقة مع المستخدم
+
+            // إعداد العلاقة الخارجية
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->timestamps();
         });
 
@@ -29,9 +38,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-
+        // Dropping the foreign key constraint first before dropping the column
+        Schema::table('properties', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+        });
 
         Schema::dropIfExists('properties');
-
     }
 };
